@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ödeme Takip</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="ust">
+  <div class="ust-sol">
+    <h1>Ödeme Takip</h1>
+    <span class="tarih" id="bugunTarih"></span>
+  </div>
+  <div class="ust-sag">
+    <button class="btn" id="btnExcel">Excel'den içe aktar</button>
+    <button class="btn" id="btnYeni">Yeni öğrenci</button>
+    <button class="btn ikincil" id="btnBildirim" title="Telegram bildirimini şimdi gönder">Bildirimi dene</button>
+    <button class="btn ikincil" id="btnAyarlar">Ayarlar</button>
+  </div>
+</header>
+
+<main>
+  <section class="kartlar" id="kartlar"></section>
+
+  <section class="arac">
+    <input type="search" id="ara" placeholder="Öğrenci, veli veya telefon ara...">
+    <div class="filtre" id="filtre">
+      <button class="cip secili" data-f="hepsi">Tümü</button>
+      <button class="cip" data-f="gecikti">Gecikmiş</button>
+      <button class="cip" data-f="yaklasiyor">Yaklaşan</button>
+      <button class="cip" data-f="odendi">Güncel</button>
+    </div>
+  </section>
+
+  <section id="fisBolum" class="fis-bolum gizli">
+    <h2>Eşleşmeyen fişler <span class="rozet" id="fisSayi"></span></h2>
+    <p class="ipucu">Telegram'dan gelen ama bir öğrenciye bağlanamayan fişler. Aşağıdan öğrenci seçip onaylayın.</p>
+    <div id="fisListe" class="fis-liste"></div>
+  </section>
+
+  <section class="tablo-kap">
+    <table class="tablo" id="ogrenciTablosu">
+      <thead>
+        <tr>
+          <th>Öğrenci</th><th>Telefon</th><th class="sag">Aylık</th>
+          <th>Son ödeme</th><th>Sonraki ödeme</th><th class="sag">Borç</th><th>Durum</th>
+        </tr>
+      </thead>
+      <tbody id="ogrenciGovde"></tbody>
+    </table>
+    <p class="bos" id="bosMesaj">Henüz öğrenci yok. “Yeni öğrenci” ile ekleyin veya Excel'den içe aktarın.</p>
+  </section>
+</main>
+
+<!-- Öğrenci detay paneli -->
+<aside class="panel gizli" id="panel">
+  <div class="panel-ust">
+    <div>
+      <h2 id="pAd"></h2>
+      <p class="alt" id="pAlt"></p>
+    </div>
+    <button class="kapat" id="pKapat" title="Kapat">✕</button>
+  </div>
+  <div id="pOzet" class="p-ozet"></div>
+
+  <div class="p-bolum">
+    <h3>Ödeme ekle</h3>
+    <form id="odemeForm" class="satir-form">
+      <input type="number" step="0.01" min="0" id="oTutar" placeholder="Tutar (TL)" required>
+      <input type="date" id="oTarih">
+      <select id="oYontem">
+        <option value="">Yöntem</option>
+        <option>Havale</option><option>EFT</option><option>Nakit</option>
+        <option>Kredi Kartı</option><option>Diğer</option>
+      </select>
+      <button class="btn" type="submit">Kaydet</button>
+    </form>
+  </div>
+
+  <div class="p-bolum">
+    <h3>Ödeme geçmişi</h3>
+    <table class="tablo kucuk"><tbody id="pOdemeler"></tbody></table>
+  </div>
+
+  <div class="p-bolum">
+    <h3>Vade takvimi</h3>
+    <table class="tablo kucuk"><tbody id="pVadeler"></tbody></table>
+  </div>
+
+  <div class="p-bolum p-butonlar">
+    <button class="btn ikincil" id="pDuzenle">Bilgileri düzenle</button>
+    <button class="btn tehlike" id="pSil">Öğrenciyi sil</button>
+  </div>
+</aside>
+
+<!-- Modal -->
+<div class="modal-arka gizli" id="modalArka">
+  <div class="modal" id="modal">
+    <div class="modal-ust">
+      <h2 id="mBaslik"></h2>
+      <button class="kapat" id="mKapat">✕</button>
+    </div>
+    <div class="modal-govde" id="mGovde"></div>
+    <div class="modal-alt" id="mAlt"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

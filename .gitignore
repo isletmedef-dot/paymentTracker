@@ -1,0 +1,7 @@
+# Gizli bilgiler ve üretilen dosyalar — sürüm kontrolüne girmemeli
+.env
+database.db
+database.db.yedek-*
+fisler/
+node_modules/
+*.log
