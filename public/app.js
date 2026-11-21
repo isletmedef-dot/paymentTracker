@@ -215,7 +215,8 @@ async function panelAc(id) {
   }
 
   const vad = $('#pVadeler'); vad.innerHTML = '';
-  const hepsi = [...z.vadeler.slice(-6).reverse(), ...d.gelecek_vadeler.slice(0, 6)];
+  // Geçmiş 6 vade eskiden yeniye, ardından gelecek 6 vade — okunabilir bir zaman çizelgesi.
+  const hepsi = [...z.vadeler.slice(-6), ...d.gelecek_vadeler.slice(0, 6)];
   for (const v of hepsi) {
     const tr = el('tr');
     tr.appendChild(el('td', '', tarihTR(v.vade)));
